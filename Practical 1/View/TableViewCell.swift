@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class TableViewCell: UITableViewCell {
   private lazy var avatarImage: UIImageView = {
@@ -44,9 +45,9 @@ class TableViewCell: UITableViewCell {
 
   private func setupConstraint() {
     avatarImage.snp.remakeConstraints { make in
-      make.centerX.equalToSuperview()
-      make.size.equalTo(50)
-      make.leading.equalToSuperview().offset(30)
+        make.size.equalTo(50)
+//      make.centerX.equalToSuperview()
+//      make.leading.equalToSuperview().offset(30)
     }
 
     titleLabel.snp.remakeConstraints { make in
@@ -59,5 +60,15 @@ class TableViewCell: UITableViewCell {
       make.top.equalTo(avatarImage.snp.bottom)
     }
   }
+    
+    func configure(with data: UserProfile) {
+        titleLabel.text = data.name
+        
+        guard let url = URL(string: data.profilePictureURL) else {
+            return
+        }
+        avatarImage.kf.setImage(with: url)
+      
+    }
 
 }
